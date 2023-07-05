@@ -1,5 +1,5 @@
 # main.rb
-require_relative 'item'
+require_relative 'lib/item'
 
 def print_options
   puts 'Options:'
