@@ -1,12 +1,3 @@
 [{"json_class":"Game","multiplayer":"yes","last_played_at":"2022","genre":null,"author":null,"source":null,"label":null,"publish_date":"12/12/2022"},
 {"json_class":"Game","multiplayer":"yes","last_played_at":"2020","genre":null,"author":null,"source":null,"label":null,"publish_date":"2021/01/12"},
 {"json_class":"Game","multiplayer":"yes","last_played_at":"2022/12/22","genre":null,"author":null,"source":null,"label":null,"publish_date":"2022/12/22"}]
-
-
-
-CREATE TABLE game(
-    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    multiplayer VARCHAR(255) NOT NULL,
-    last_played_at DATE NOT NULL,
-    FOREIGN KEY (item_id) REFERENCES item (id)
-);
