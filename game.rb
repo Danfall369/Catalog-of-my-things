@@ -32,7 +32,7 @@ class Game < Item
 
   def self.from_json(json_string)
     data = JSON.parse(json_string)
-    self.new(
+    new(
       data['publish_date'],
       data['multiplayer'],
       data['last_played_at'],
