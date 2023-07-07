@@ -10,6 +10,15 @@ class Book < Item
   end
 
   def can_be_archived?
-    super || cover_state == 'bad'
+    super || @cover_state == "bad"
+  end
+
+  def move_to_archived
+    if can_be_archived?
+      @archived = true
+      puts 'Item moved to archived.'
+    else
+      puts 'Item cannot be archived.'
+    end
   end
 end
