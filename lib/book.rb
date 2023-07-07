@@ -1,3 +1,4 @@
+# book.rb
 require_relative 'item'
 require 'json'
 
@@ -37,22 +38,19 @@ class Book < Item
 
     books = []
 
-    if File.exist?(file_path)
-      # Si el archivo existe, se lee su contenido actual
-      existing_data = File.read(file_path)
+    if File.exist?(self.class.file_path)
+      existing_data = File.read(self.class.file_path)
       books = JSON.parse(existing_data) unless existing_data.empty?
     end
 
-    books << book_data  # Se agrega el nuevo libro al arreglo de libros
+    books << book_data
 
-    File.open(file_path, 'w') do |file|
+    File.open(self.class.file_path, 'w') do |file|
       file.write(JSON.generate(books))
     end
   end
 
-  private
-
-  def file_path
+  def self.file_path
     './data/book.json'
   end
 end
