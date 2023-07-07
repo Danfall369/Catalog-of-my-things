@@ -1,5 +1,5 @@
-require_relative '../Method/music_album'
 require_relative '../item'
+require_relative '../Method/label'
 
 describe Game do
   let(:last_played_at) { '2021-07-20' }

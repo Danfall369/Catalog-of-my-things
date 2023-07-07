@@ -1,4 +1,6 @@
 require 'date'
+require_relative 'Method/genre'
+require_relative 'Method/label'
 
 class Item
   attr_reader :id, :genre, :author, :label, :publish_date
