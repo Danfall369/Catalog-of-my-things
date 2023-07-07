@@ -41,29 +41,36 @@ class Label
 
   def self.load_from_file
     labels = []
-
+  
     if File.exist?(file_path)
       data = File.read(file_path)
       labels_data = JSON.parse(data) unless data.empty?
-
+  
       labels_data.each do |label_data|
         id = label_data['id']
         title = label_data['title']
         color = label_data['color']
         item_ids = label_data['item_ids']
-
-        items = Item.load_from_file.select { |item| item_ids.include?(item.id) }
-
+  
+        items = Book.load_from_file.select { |item| item_ids.include?(item.id) }
+  
         label = Label.new(id, title, color)
         label.items = items
         labels << label
       end
     end
-
+  
     labels
-  end
+  end  
 
   def self.file_path
     './data/labels.json'
+  end
+
+  def self.generate_id
+    labels = load_from_file
+    ids = labels.map(&:id)
+    max_id = ids.empty? ? 0 : ids.max
+    max_id + 1
   end
 end

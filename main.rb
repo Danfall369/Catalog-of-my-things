@@ -54,7 +54,7 @@ def add_book
   print 'Author: '
   author = gets.chomp
   print 'Label: '
-  label = gets.chomp
+  label_title = gets.chomp
   print 'Publish Date (YYYY-MM-DD): '
   publish_date = Date.parse(gets.chomp)
   print 'Publisher: '
@@ -62,9 +62,18 @@ def add_book
   print 'Cover State (good/bad): '
   cover_state = gets.chomp
 
-  book = Book.new(id, genre, author, label, publish_date, publisher, cover_state)
+  book = Book.new(id, genre, author, label_title, publish_date, publisher, cover_state)
   book.save
   puts 'Book added successfully.'
+
+  # Agregar etiqueta y actualizar el archivo labels.json
+  label = Label.new(Label.generate_id, label_title, generate_random_color)
+  label.add_item(book)
+  puts 'Label added successfully.'
+end
+
+def generate_random_color
+  "#%06x" % (rand * 0xffffff)
 end
 
 loop do
