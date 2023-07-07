@@ -78,6 +78,6 @@ class Book < Item
   end
 
   def self.file_path
-    './data/books.json'
+    './data/book.json'
   end
 end
