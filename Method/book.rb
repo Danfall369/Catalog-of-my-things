@@ -14,3 +14,16 @@ class Book < Item
     @can_be_archived = can_be_archived?
     @labels = []
   end
+
+  def can_be_archived?
+    return false if @publish_date.nil?
+
+    (Time.now.year - @publish_date.year) > 10
+  end
+
+  def update_labels(labels)
+    labels.each do |label|
+      label.add_item(self) if label.title == @title
+    end
+  end
+end

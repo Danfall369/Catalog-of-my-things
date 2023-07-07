@@ -6,3 +6,13 @@ class Genre
     @name = name
     @items = []
   end
+
+  def add_item(item)
+    if item.is_a?(Item)
+      @items << item
+      item.genre = self
+    else
+      puts 'Invalid item'
+    end
+  end
+end

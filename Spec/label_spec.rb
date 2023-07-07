@@ -1,14 +1,37 @@
 require_relative '../item'
 require_relative '../Method/label'
 
-describe Game do
-  let(:last_played_at) { '2021-07-20' }
-  let(:game) { Game.new(true, last_played_at, '2021-07-20') }
+RSpec.describe Label do
+  describe '#add_item' do
+    it 'adds the item to the labels items array' do
+      label = Label.new(1, 'Test Label', 'red')
+      item = Item.new('Item 1')
 
-  describe '#can_be_archived?' do
-    context 'when the item cannot be archived' do
-      let(:item) { double('item') }
+      label.add_item(item)
 
-      before do
-        allow(game).to receive(:super).and_return(false)
-      end
+      expect(label.items).to include(item)
+    end
+
+    it 'sets the label as the items label' do
+      label = Label.new(1, 'Test Label', 'red')
+      item = Item.new('Item 1')
+
+      label.add_item(item)
+
+      expect(item.label).to eq(label)
+    end
+  end
+end
+
+RSpec.describe Label do
+  describe '#initialize' do
+    it 'initializes the label object with the given attributes' do
+      label = Label.new(1, 'Test Label', 'red')
+
+      expect(label.id).to eq(1)
+      expect(label.title).to eq('Test Label')
+      expect(label.color).to eq('red')
+      expect(label.items).to be_empty
+    end
+  end
+end
