@@ -67,13 +67,15 @@ def add_book
   puts 'Book added successfully.'
 
   # Agregar etiqueta y actualizar el archivo labels.json
-  label = Label.new(Label.generate_id, label_title, generate_random_color)
+  label_color = generate_random_color
+  label = Label.new(Label.generate_id, label_title, label_color)
   label.add_item(book)
-  puts 'Label added successfully.'
+  puts "Label added successfully with color: #{label_color}."
 end
 
 def generate_random_color
-  "#%06x" % (rand * 0xffffff)
+  colors = ['red', 'blue', 'green', 'yellow', 'orange', 'purple'] # Puedes agregar más colores si lo deseas
+  colors.sample
 end
 
 loop do
