@@ -4,7 +4,17 @@ require 'rspec'
 
 describe Book do
   let(:publish_date) { Date.new(2010, 1, 1) }
-  let(:book) { Book.new(id: 1, genre: 'Genre', author: 'Author', label: 'Label', publish_date: publish_date, publisher: 'Publisher', cover_state: 'good') }
+  let(:book) do
+    Book.new(
+      id: 1,
+      genre: 'Genre',
+      author: 'Author',
+      label: 'Label',
+      publish_date: publish_date,
+      publisher: 'Publisher',
+      cover_state: 'good'
+    )
+  end
 
   describe '#initialize' do
     it 'initializes a book object with provided attributes' do
@@ -35,7 +45,17 @@ describe Book do
     end
 
     context 'when the cover state is bad' do
-      let(:book) { Book.new(id: 1, genre: 'Genre', author: 'Author', label: 'Label', publish_date: publish_date, publisher: 'Publisher', cover_state: 'bad') }
+      let(:book) do
+        Book.new(
+          id: 1,
+          genre: 'Genre',
+          author: 'Author',
+          label: 'Label',
+          publish_date: publish_date,
+          publisher: 'Publisher',
+          cover_state: 'bad'
+        )
+      end
 
       it 'returns true' do
         expect(book.can_be_archived?).to eq(true)
@@ -85,7 +105,6 @@ describe Book do
 
     it 'writes the book data to the file when the file is empty' do
       book.save
-
       expect(File).to have_received(:write).with(file_path, JSON.generate([book_data]))
     end
 
@@ -95,7 +114,6 @@ describe Book do
 
       it 'appends the book data to the file' do
         book.save
-
         expect(File).to have_received(:write).with(file_path, JSON.generate(existing_books << book_data))
       end
     end

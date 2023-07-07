@@ -53,23 +53,14 @@ def add_book
   genre = gets.chomp
   print 'Author: '
   author = gets.chomp
-  print 'Label: '
-  label_title = gets.chomp
+  label_title = input_label_title
   publish_date = input_publish_date
   print 'Publisher: '
   publisher = gets.chomp
   print 'Cover State (good/bad): '
   cover_state = gets.chomp
 
-  book = Book.new(
-    id: id,
-    genre: genre,
-    author: author,
-    label: label_title,
-    publish_date: publish_date,
-    publisher: publisher,
-    cover_state: cover_state
-  )
+  book = Book.new(id, genre, author, label_title, publish_date, publisher, cover_state)
   book.save
   puts 'Book added successfully.'
 
