@@ -60,7 +60,8 @@ def add_book
   print 'Cover State (good/bad): '
   cover_state = gets.chomp
 
-  book = Book.new(id, genre, author, label_title, publish_date, publisher, cover_state)
+  book = Book.new(id: id, genre: genre, author: author, label: label_title, publish_date: publish_date,
+                  publisher: publisher, cover_state: cover_state)
   book.save
   puts 'Book added successfully.'
 
