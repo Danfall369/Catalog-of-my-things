@@ -1,5 +1,5 @@
-require_relative './lib/book'
-require_relative './lib/label'
+require_relative 'lib/book'
+require_relative 'lib/label'
 require 'date'
 
 def print_options
@@ -55,18 +55,38 @@ def add_book
   author = gets.chomp
   print 'Label: '
   label_title = gets.chomp
-  print 'Publish Date (YYYY-MM-DD): '
-  publish_date = Date.parse(gets.chomp)
+  publish_date = input_publish_date
   print 'Publisher: '
   publisher = gets.chomp
   print 'Cover State (good/bad): '
   cover_state = gets.chomp
 
-  book = Book.new(id, genre, author, label_title, publish_date, publisher, cover_state)
+  book = Book.new(
+    id: id,
+    genre: genre,
+    author: author,
+    label: label_title,
+    publish_date: publish_date,
+    publisher: publisher,
+    cover_state: cover_state
+  )
   book.save
   puts 'Book added successfully.'
 
-  # Agregar etiqueta y actualizar el archivo labels.json
+  add_label(book, label_title)
+end
+
+def input_label_title
+  print 'Label: '
+  gets.chomp
+end
+
+def input_publish_date
+  print 'Publish Date (YYYY-MM-DD): '
+  Date.parse(gets.chomp)
+end
+
+def add_label(book, label_title)
   label_color = generate_random_color
   label = Label.new(Label.generate_id, label_title, label_color)
   label.add_item(book)
@@ -74,7 +94,7 @@ def add_book
 end
 
 def generate_random_color
-  colors = ['red', 'blue', 'green', 'yellow', 'orange', 'purple'] # Puedes agregar más colores si lo deseas
+  colors = %w[red blue green yellow orange purple] # Puedes agregar más colores si lo deseas
   colors.sample
 end
 

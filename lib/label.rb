@@ -34,34 +34,32 @@ class Label
 
     labels << label_data
 
-    File.open(self.class.file_path, 'w') do |file|
-      file.write(JSON.generate(labels))
-    end
+    File.write(self.class.file_path, JSON.generate(labels))
   end
 
   def self.load_from_file
     labels = []
-  
+
     if File.exist?(file_path)
       data = File.read(file_path)
       labels_data = JSON.parse(data) unless data.empty?
-  
+
       labels_data.each do |label_data|
         id = label_data['id']
         title = label_data['title']
         color = label_data['color']
         item_ids = label_data['item_ids']
-  
+
         items = Book.load_from_file.select { |item| item_ids.include?(item.id) }
-  
+
         label = Label.new(id, title, color)
         label.items = items
         labels << label
       end
     end
-  
+
     labels
-  end  
+  end
 
   def self.file_path
     './data/labels.json'

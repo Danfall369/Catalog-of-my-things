@@ -1,14 +1,13 @@
-# book.rb
 require_relative 'item'
 require 'json'
 
 class Book < Item
   attr_accessor :publisher, :cover_state
 
-  def initialize(id, genre, author, label, publish_date, publisher, cover_state)
-    super(id, genre, author, label, publish_date)
-    @publisher = publisher
-    @cover_state = cover_state
+  def initialize(params)
+    super(params[:id], params[:genre], params[:author], params[:label], params[:publish_date])
+    @publisher = params[:publisher]
+    @cover_state = params[:cover_state]
   end
 
   def can_be_archived?
@@ -45,9 +44,7 @@ class Book < Item
 
     books << book_data
 
-    File.open(self.class.file_path, 'w') do |file|
-      file.write(JSON.generate(books))
-    end
+    File.write(self.class.file_path, JSON.generate(books))
   end
 
   def self.load_from_file
@@ -67,7 +64,8 @@ class Book < Item
         cover_state = book_data['cover_state']
         archived = book_data['archived']
 
-        book = Book.new(id, genre, author, label, publish_date, publisher, cover_state)
+        book = Book.new(id: id, genre: genre, author: author, label: label, publish_date: publish_date,
+                        publisher: publisher, cover_state: cover_state)
         book.archived = archived
 
         books << book
