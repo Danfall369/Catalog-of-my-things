@@ -1,41 +1,51 @@
-# main.rb
 require_relative './lib/book'
+require_relative './lib/label'
+require 'date'
 
 def print_options
   puts 'Options:'
   puts '1. List all books'
-  puts '2. Add a book'
-  puts '3. Move book to archived'
+  puts '2. List all labels'
+  puts '3. Add a book'
   puts '4. Quit'
 end
 
 def list_all_books
-  # Implement the logic to list all books
-  books = []
-  if File.exist?(Book.file_path)
-    book_data = File.read(Book.file_path)
-    books = JSON.parse(book_data) unless book_data.empty?
-  end
+  books = Book.load_from_file
 
   if books.empty?
     puts 'No books available.'
   else
     books.each do |book|
-      puts "ID: #{book['id']}"
-      puts "Genre: #{book['genre']}"
-      puts "Author: #{book['author']}"
-      puts "Label: #{book['label']}"
-      puts "Publish Date: #{book['publish_date']}"
-      puts "Publisher: #{book['publisher']}"
-      puts "Cover State: #{book['cover_state']}"
-      puts "Archived: #{book['archived']}"
+      puts "ID: #{book.id}"
+      puts "Genre: #{book.genre}"
+      puts "Author: #{book.author}"
+      puts "Label: #{book.label}"
+      puts "Publish Date: #{book.publish_date}"
+      puts "Publisher: #{book.publisher}"
+      puts "Cover State: #{book.cover_state}"
+      puts "Archived: #{book.archived}"
+      puts '---'
+    end
+  end
+end
+
+def list_all_labels
+  labels = Label.load_from_file
+
+  if labels.empty?
+    puts 'No labels available.'
+  else
+    labels.each do |label|
+      puts "ID: #{label.id}"
+      puts "Title: #{label.title}"
+      puts "Color: #{label.color}"
       puts '---'
     end
   end
 end
 
 def add_book
-  # Implement the logic to add a book
   puts 'Enter the book details:'
   print 'ID: '
   id = gets.chomp
@@ -57,30 +67,6 @@ def add_book
   puts 'Book added successfully.'
 end
 
-def move_to_archived
-  # Implement the logic to move a book to archived
-  puts 'Enter the ID of the book to move to archived:'
-  id = gets.chomp
-
-  books = []
-  if File.exist?(Book.file_path)
-    book_data = File.read(Book.file_path)
-    books = JSON.parse(book_data) unless book_data.empty?
-  end
-
-  book = books.find { |b| b['id'] == id }
-
-  if book.nil?
-    puts 'Book not found.'
-  else
-    book['archived'] = true
-    File.open(Book.file_path, 'w') do |file|
-      file.write(JSON.generate(books))
-    end
-    puts 'Book moved to archived.'
-  end
-end
-
 loop do
   print_options
   option = gets.chomp.to_i
@@ -89,9 +75,9 @@ loop do
   when 1
     list_all_books
   when 2
-    add_book
+    list_all_labels
   when 3
-    move_to_archived
+    add_book
   when 4
     puts 'Exiting the app. Goodbye!'
     break

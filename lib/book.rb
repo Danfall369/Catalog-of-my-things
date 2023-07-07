@@ -50,7 +50,34 @@ class Book < Item
     end
   end
 
+  def self.load_from_file
+    books = []
+
+    if File.exist?(file_path)
+      data = File.read(file_path)
+      books_data = JSON.parse(data) unless data.empty?
+
+      books_data.each do |book_data|
+        id = book_data['id']
+        genre = book_data['genre']
+        author = book_data['author']
+        label = book_data['label']
+        publish_date = Date.parse(book_data['publish_date'])
+        publisher = book_data['publisher']
+        cover_state = book_data['cover_state']
+        archived = book_data['archived']
+
+        book = Book.new(id, genre, author, label, publish_date, publisher, cover_state)
+        book.archived = archived
+
+        books << book
+      end
+    end
+
+    books
+  end
+
   def self.file_path
-    './data/book.json'
+    './data/books.json'
   end
 end
