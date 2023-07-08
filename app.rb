@@ -1,5 +1,6 @@
 require_relative 'menu_options/book_manager'
 require_relative 'menu_options/music_manager'
+require_relative 'menu_options/game_manager'
 require 'colorize'
 
 class App
@@ -11,6 +12,7 @@ class App
     @music_albums = MusicManager.new(@albums)
     @book_options = BookOptions.new(@books)
     @music_albums = MusicManager.new(@albums)
+    @game_options = GameOptions.new(@games)
   end
 
   def list_books
@@ -20,6 +22,11 @@ class App
 
   def list_music_albums
     @music_albums.list_music_albums(@albums)
+    @main.display_menu
+  end
+
+  def list_games
+    @game_options.list_games(@games)
     @main.display_menu
   end
 
@@ -95,6 +102,11 @@ class App
     @main.display_menu
   end
 
+  def add_game
+    @game_options.add_game
+    @main.display_menu
+  end
+
   def quit
     puts ''
     puts '--------------------------------------------------------------'
@@ -102,12 +114,13 @@ class App
     puts '--------------------------------------------------------------'
     @book_options.save_books
     @music_albums.save_music_albums
+    @game_options.save_games
     exit
   end
 
   def load_data
     @music_albums.load_music_albums
     @book_options.load_books
-    @music_albums.load_music_albums
+    @game_options.load_games
   end
 end
