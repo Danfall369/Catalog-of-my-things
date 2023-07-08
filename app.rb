@@ -11,6 +11,7 @@ class App
     @games = []
     @music_albums = MusicManager.new(@albums)
     @book_options = BookOptions.new(@books)
+    @music_albums = MusicManager.new(@albums)
   end
 
   def list_books
@@ -106,6 +107,7 @@ class App
   end
 
   def load_data
+    @music_albums.load_music_albums
     @book_options.load_books
     @music_albums.load_music_albums
   end
