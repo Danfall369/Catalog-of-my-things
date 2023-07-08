@@ -40,7 +40,7 @@ class Main
 
     method = options[user_choice]
     if method.nil?
-      puts 'Invalid option'
+      puts 'Invalid option, please try again.'
       display_menu
     else
       @app.send(method)
