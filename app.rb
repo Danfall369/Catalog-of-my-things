@@ -1,5 +1,7 @@
 require_relative 'menu_options/book_manager'
+require_relative 'menu_options/music_manager'
 require 'colorize'
+
 
 class App
   def initialize(main)
@@ -7,11 +9,17 @@ class App
     @books = []
     @albums = []
     @games = []
+    @music_albums = MusicManager.new(@albums)
     @book_options = BookOptions.new(@books)
   end
 
   def list_books
     @book_options.list_books(@books)
+    @main.display_menu
+  end
+
+  def list_music_albums
+    @music_albums.list_music_albums(@albums)
     @main.display_menu
   end
 
@@ -82,16 +90,23 @@ class App
     @main.display_menu
   end
 
+  def add_music_album
+    @music_albums.add_music_album
+    @main.display_menu
+  end
+
   def quit
     puts ''
     puts '--------------------------------------------------------------'
     puts 'Thank you for using the Catalog App!'
     puts '--------------------------------------------------------------'
     @book_options.save_books
+    @music_albums.save_music_albums
     exit
   end
 
   def load_data
     @book_options.load_books
+    @music_albums.load_music_albums
   end
 end
