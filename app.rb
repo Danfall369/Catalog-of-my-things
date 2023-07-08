@@ -16,57 +16,64 @@ class App
   end
 
   def list_genres
-    puts 'List of genres:'
+    puts '-------- List of genres: --------'
+    puts ''
     if @albums.empty? and @books.empty? and @games.empty?
       puts 'No genres added yet'
     else
-      puts 'Listing all genres'
       @albums.each do |genre|
-        puts "Name: #{genre.genre.name}"
+        puts "Genre Name: #{genre.genre.name}"
       end
       @books.each do |genre|
-        puts "Name: #{genre.genre.name}"
+        puts "Genre Name: #{genre.genre.name}"
       end
       @games.each do |genre|
-        puts "Name: #{genre.genre.name}"
+        puts "Genre Name: #{genre.genre.name}"
       end
     end
+    puts ''
+    puts '---------------------------------'
     @main.display_menu
   end
 
   def list_labels
-    puts 'List of labels:'
+    puts '-------- List of Labels: --------'
+    puts ''
     if @albums.empty? and @books.empty? and @games.empty?
       puts 'No labels added yet'
     else
-      puts 'Listing all labels'
       @albums.each do |label|
-        puts "Name: #{label.label.title} Color: #{label.label.color}"
+        puts "Label Name: #{label.label.title} | Label Color: #{label.label.color}"
       end
       @books.each do |label|
-        puts "Name: #{label.label.title} Color: #{label.label.color}"
+        puts "Label Name: #{label.label.title} | Label Color: #{label.label.color}"
       end
       @games.each do |label|
-        puts "Name: #{label.label.title} Color: #{label.label.color}"
+        puts "Label Name: #{label.label.title} | Label Color: #{label.label.color}"
       end
     end
+    puts ''
+    puts '---------------------------------'
   end
 
   def list_authors
+    puts '-------- List of Authors: --------'
+    puts ''
     if @albums.empty? and @books.empty? and @games.empty?
       puts 'No authors added yet'
     else
-      puts 'Listing all authors'
       @albums.each do |author|
-        puts "Name: #{author.author.first_name} #{author.author.last_name}"
+        puts "Full-Name: #{author.author.first_name} #{author.author.last_name}"
       end
       @books.each do |author|
-        puts "Name: #{author.author.first_name} #{author.author.last_name}"
+        puts "Full-Name: #{author.author.first_name} #{author.author.last_name}"
       end
       @games.each do |author|
-        puts "Name: #{author.author.first_name} #{author.author.last_name}"
+        puts "Full-Name: #{author.author.first_name} #{author.author.last_name}"
       end
     end
+    puts ''
+    puts '---------------------------------'
     @main.display_menu
   end
 

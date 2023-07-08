@@ -1,4 +1,4 @@
-require_relative '../item'
+require './item'
 require 'date'
 
 class Book < Item

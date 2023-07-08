@@ -12,13 +12,14 @@ class BookOptions
   end
 
   def list_books(books)
-    puts 'List of Books:'
+    puts '-------- List of Books: --------'
     if books.empty?
       puts 'No books added yet'
     else
       books.each do |book|
         puts ''
         puts "----- Book number #{book.id} -----"
+        puts ''
         puts "Book Name: #{book.label.title}"
         puts "Author: #{book.author.first_name} #{book.author.last_name}"
         puts "Published by: #{book.publisher} on: #{book.publish_date}"
@@ -27,6 +28,7 @@ class BookOptions
         puts ''
       end
     end
+    puts '---------------------------------'
   end
 
   def add_book
