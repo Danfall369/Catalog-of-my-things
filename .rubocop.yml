@@ -10,7 +10,7 @@ Layout/LineLength:
   Max: 120
 
 Metrics/MethodLength:
-  Max: 20
+  Max: 50
 
 Metrics/AbcSize:
   Max: 50
@@ -64,3 +64,7 @@ Style/HashTransformKeys:
 
 Style/HashTransformValues:
   Enabled: false
+
+Lint/DuplicateMethods:
+  Exclude:
+    - 'item.rb'

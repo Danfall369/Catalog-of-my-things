@@ -1,110 +1,51 @@
-require_relative 'lib/book'
-require_relative 'lib/label'
-require 'date'
+require_relative 'app'
 
-def print_options
-  puts 'Options:'
-  puts '1. List all books'
-  puts '2. List all labels'
-  puts '3. Add a book'
-  puts '4. Quit'
-end
+class Main
+  def initialize
+    @app = App.new(self)
+    puts ''
+    puts '-------------------------------------------------------------------------------------'
+    puts 'Welcome to the Catalog App'
+    puts '-------------------------------------------------------------------------------------'
+    @app.load_data
+    display_menu
+  end
 
-def list_all_books
-  books = Book.load_from_file
+  def display_menu
+    loop do
+      puts ''
+      puts 'Please choose an option by entering a number:'
+      puts ''
+      puts '1. List all books'
+      puts '2. List all genres'
+      puts '3. List all labels'
+      puts '4. List all authors'
+      puts '5. Add a book'
+      puts '6. Exit'
+      puts
+      user_choice = gets.chomp
+      option_selected(user_choice)
+    end
+  end
 
-  if books.empty?
-    puts 'No books available.'
-  else
-    books.each do |book|
-      puts "ID: #{book.id}"
-      puts "Genre: #{book.genre}"
-      puts "Author: #{book.author}"
-      puts "Label: #{book.label}"
-      puts "Publish Date: #{book.publish_date}"
-      puts "Publisher: #{book.publisher}"
-      puts "Cover State: #{book.cover_state}"
-      puts "Archived: #{book.archived}"
-      puts '---'
+  def option_selected(user_choice)
+    options = {
+      '1' => :list_books,
+      '2' => :list_genres,
+      '3' => :list_labels,
+      '4' => :list_authors,
+      '5' => :add_book,
+      '6' => :quit
+    }
+
+    method = options[user_choice]
+    if method.nil?
+      puts 'Invalid option'
+      display_menu
+    else
+      @app.send(method)
     end
   end
 end
 
-def list_all_labels
-  labels = Label.load_from_file
-
-  if labels.empty?
-    puts 'No labels available.'
-  else
-    labels.each do |label|
-      puts "ID: #{label.id}"
-      puts "Title: #{label.title}"
-      puts "Color: #{label.color}"
-      puts '---'
-    end
-  end
-end
-
-def add_book
-  puts 'Enter the book details:'
-  print 'ID: '
-  id = gets.chomp
-  print 'Genre: '
-  genre = gets.chomp
-  print 'Author: '
-  author = gets.chomp
-  label_title = input_label_title
-  publish_date = input_publish_date
-  print 'Publisher: '
-  publisher = gets.chomp
-  print 'Cover State (good/bad): '
-  cover_state = gets.chomp
-
-  book = Book.new(id: id, genre: genre, author: author, label: label_title, publish_date: publish_date,
-                  publisher: publisher, cover_state: cover_state)
-  book.save
-  puts 'Book added successfully.'
-
-  add_label(book, label_title)
-end
-
-def input_label_title
-  print 'Label: '
-  gets.chomp
-end
-
-def input_publish_date
-  print 'Publish Date (YYYY-MM-DD): '
-  Date.parse(gets.chomp)
-end
-
-def add_label(book, label_title)
-  label_color = generate_random_color
-  label = Label.new(Label.generate_id, label_title, label_color)
-  label.add_item(book)
-  puts "Label added successfully with color: #{label_color}."
-end
-
-def generate_random_color
-  colors = %w[red blue green yellow orange purple] # Puedes agregar más colores si lo deseas
-  colors.sample
-end
-
-loop do
-  print_options
-  option = gets.chomp.to_i
-
-  case option
-  when 1
-    list_all_books
-  when 2
-    list_all_labels
-  when 3
-    add_book
-  when 4
-    puts 'Exiting the app. Goodbye!'
-    break
-  else
-    puts 'Invalid option. Please try again.'
-  end
-end
+Main.new
