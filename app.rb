@@ -2,7 +2,6 @@ require_relative 'menu_options/book_manager'
 require_relative 'menu_options/music_manager'
 require 'colorize'
 
-
 class App
   def initialize(main)
     @main = main
