@@ -101,9 +101,9 @@ class BookOptions
   end
 
   def load_books
-    return unless File.exist?('Storage/books.json')
+    return unless File.exist?('data/books.json')
 
-    books_data = JSON.parse(File.read('Storage/books.json'))
+    books_data = JSON.parse(File.read('data/books.json'))
     books_data.each do |book_data|
       book_genre = Genre.new(book_data['genre'])
       book_label = Label.new(Random.rand(1..1000), book_data['label_title'], book_data['label_color'])

@@ -27,18 +27,18 @@ describe Book do
     end
 
     context 'when publish_date is more than 10 years ago' do
-      let(:publish_date) { Date.new(Time.now.year - 12, 3, 4) }
+      let(:publish_date) { Date.new(2010, 1, 1) }
 
       it 'returns true' do
         expect(book.can_be_archived?).to be true
       end
     end
 
-    context 'when publish_date is less than 10 years ago' do
-      let(:publish_date) { Date.new(Time.now.year - 8, 4, 2) }
+    context 'when cover_state is bad' do
+      let(:cover_state) { 'bad' }
 
-      it 'returns false' do
-        expect(book.can_be_archived?).to be false
+      it 'returns true' do
+        expect(book.can_be_archived?).to be true
       end
     end
   end

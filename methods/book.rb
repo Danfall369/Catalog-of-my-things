@@ -11,8 +11,13 @@ class Book < Item
   end
 
   def can_be_archived?
-    return false if @publish_date.nil?
+    return false if publish_date.nil?
 
-    (Time.now.year - @publish_date.year) > 10
+    years_since_publish = Date.today.year - publish_date.year
+    if years_since_publish > 10
+      true
+    else
+      @cover_state.downcase == 'bad'
+    end
   end
 end

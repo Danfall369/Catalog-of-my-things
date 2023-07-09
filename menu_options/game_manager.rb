@@ -90,9 +90,9 @@ class GameOptions
   end
 
   def load_games
-    return unless File.exist?('Storage/game.json')
+    return unless File.exist?('data/game.json')
 
-    games_data = JSON.parse(File.read('Storage/game.json'))
+    games_data = JSON.parse(File.read('data/game.json'))
     games_data.each do |game_data|
       game_genre = Genre.new(game_data['genre'])
       game_label = Label.new(Random.rand(1..1000), game_data['label_title'], game_data['label_color'])
